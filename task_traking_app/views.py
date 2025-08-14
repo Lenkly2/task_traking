@@ -7,3 +7,4 @@ class ProjectListView(ListView):
     model = Project
     template_name = "task_traking/Projectlist.html"
     context_object_name = "projectlist"
+    testgit=""
