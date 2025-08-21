@@ -1,0 +1,9 @@
+{% extends 'task_traking/index.html' %}
+
+{% block content%}
+    <form method="post" action="{% url 'create_task' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">submit</button>
+    </form>
+{% endblock %}

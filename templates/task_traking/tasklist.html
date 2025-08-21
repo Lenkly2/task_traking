@@ -1,7 +1,7 @@
 {% extends 'task_traking/index.html' %}
 
 {% block content %}
-    {% for i in projectlist %}
-        <a href="{% url 'task_list' pk=i.pk %}">{{i}}</a>
+    {% for i in tasklist %}
+        {{i}}
     {% endfor %}
 {% endblock %}

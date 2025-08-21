@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Member(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+# class Member(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class Project(models.Model):
-    name = models.CharField()
-    owner = models.ForeignKey(Member, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
 
 class Task(models.Model):
@@ -30,9 +30,10 @@ class Task(models.Model):
     updated_at = models.DateTimeField()
     created_at = models.DateTimeField()
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
 
 class Comment(models.Model):
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
     description = models.TextField()
-    author = models.ForeignKey(Member, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField()
