@@ -1,5 +1,5 @@
 from django import forms
-from .models import Task, Project
+from .models import Task, Project, Comment
 
 class TaskForm(forms.ModelForm):
     class Meta:
@@ -23,4 +23,15 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control", "rows": 100}),
             "description": forms.TextInput(attrs={"class": "form-control"})
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["task","description","media","created_at"]
+        widgets = {
+            "task": forms.Select(attrs={"class": "form-control"}),
+            "description": forms.TextInput(attrs={"class": "form-control"}),
+            "media": forms.ClearableFileInput(),
+            "created_at": forms.DateTimeInput(attrs={"class": "form-control","type": "datetime-local"})
         }

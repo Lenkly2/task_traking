@@ -10,6 +10,9 @@ class Project(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
 
+    def __str__(self):
+        return self.name
+    
 class Task(models.Model):
     STATUS_CHOISES = [
         ("todo", "To Do"),
@@ -32,8 +35,12 @@ class Task(models.Model):
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     created_by = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
 
+    def __str__(self):
+        return self.title
+    
 class Comment(models.Model):
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
     description = models.TextField()
+    media = models.FileField(upload_to="media/",blank=True,null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField()

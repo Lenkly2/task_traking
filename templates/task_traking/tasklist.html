@@ -2,6 +2,9 @@
 
 {% block content %}
     {% for i in tasklist %}
-        {{i}}
+        <a href="{% url 'task_detail' pk=i.pk %}">{{i.title}}</a><br>
+        {{i.description}}<br>
+        <br>
+
     {% endfor %}
 {% endblock %}

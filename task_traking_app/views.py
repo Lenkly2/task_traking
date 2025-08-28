@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, FormView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LogoutView, LoginView
 from .models import Project, Task, Comment
-from .forms import TaskForm, ProjectForm
+from .forms import TaskForm, ProjectForm, CommentForm
 # Create your views here.
+
 class MainView(TemplateView):
     template_name = "task_traking/index.html"
 
@@ -21,9 +23,14 @@ class TaskListView(ListView):
     def get_queryset(self):
         project = self.kwargs["pk"]
         return Task.objects.filter(project=project)
-    
 
-class CreateTaskView(CreateView):
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = "task_traking/detailtask.html"
+    context_object_name = "detailtask"
+
+
+class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "task_traking/taskcreate.html"
@@ -43,6 +50,15 @@ class CreateProjectView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
     
+class CreateCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "task_traking/comentcreate.html"
+    succes_url = "../"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class RegisterView(FormView):
     template_name = "auth/register.html"
@@ -52,10 +68,9 @@ class RegisterView(FormView):
         form.save()
         return super().form_valid(form)
     
-class LoginView(FormView):
-    template_name = "auth/register.html"
-    form_class = AuthenticationForm
+class CustomLoginView(LoginView):
+    template_name = "auth/login.html"
     success_url = "../"
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+
+class CustomLogoutView(LogoutView):
+    next_page = "login"

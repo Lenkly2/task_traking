@@ -1,0 +1,15 @@
+{% extends 'task_traking/index.html' %}
+
+{% block content %}
+    
+        <p>{{detailtask.title}}</p>
+        <p>{{detailtask.description}}</p>
+        <p>{{detailtask.status}}</p>
+        <p>{{detailtask.priority}}</p>
+        <p>{{detailtask.due_date}}</p>
+        <p>{{detailtask.updated_at}}</p>
+        <p>{{detailtask.created_at}}</p>
+        <p>{{detailtask.created_by}}</p>
+
+        <a href="create_comment">написати коментарій</a>
+{% endblock %}

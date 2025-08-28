@@ -1,7 +1,8 @@
 <html>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-
+        {% load static %}
+        <link rel="stylesheet" href="{%static 'css/style.css'%}">
     </head>
 
     <body>
@@ -14,19 +15,26 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class = "nav-link" href="{% url 'project_list'%}">список задач</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class = "nav-link" href="{% url 'create_task'%}">створити задачу</a>
+                            <a class = "nav-link" href="{% url 'project_list'%}">список проєктів</a>
                         </li>
                         <li class="nav-item">
                             <a class = "nav-link" href="{% url 'create_project'%}">створити проект</a>
                         </li>
                         <li class="nav-item">
+                            <a class = "nav-link" href="{% url 'create_task'%}">створити задачу</a>
+                        </li>
+
+                        <li class="nav-item" >
+                            <a class = "nav-link" href="{% url 'login'%}">ввійти</a>
+                        </li>
+                        <li class="nav-item" >
                             <a class = "nav-link" href="{% url 'register'%}">зареєструватися</a>
                         </li>
                         <li class="nav-item">
-                            <a class = "nav-link" href="{% url 'login'%}">ввійти</a>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class = "nav-link">вийти</button>
+                            </form>
                         </li>
                     </ul>
                 </div>

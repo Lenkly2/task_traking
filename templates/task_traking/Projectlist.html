@@ -2,6 +2,8 @@
 
 {% block content %}
     {% for i in projectlist %}
-        <a href="{% url 'task_list' pk=i.pk %}">{{i}}</a>
+        <a href="{% url 'task_list' pk=i.pk %}">{{i.name}}</a><br>
+        {{i.description}}
+        <br><br>
     {% endfor %}
 {% endblock %}
