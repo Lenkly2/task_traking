@@ -11,5 +11,11 @@
         <p>{{detailtask.created_at}}</p>
         <p>{{detailtask.created_by}}</p>
 
-        <a href="create_comment">написати коментарій</a>
+        <a href="{% url 'create_comment' %}">написати коментарій</a>
+
+        {% for i in coment %}
+                <li>{{i.author}}</li>
+                {{i.description}}
+                {{i.media}}<br><br>
+        {% endfor %}
 {% endblock %}

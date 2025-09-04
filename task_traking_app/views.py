@@ -8,7 +8,7 @@ from .forms import TaskForm, ProjectForm, CommentForm
 # Create your views here.
 
 class MainView(TemplateView):
-    template_name = "task_traking/index.html"
+    template_name = "task_traking/home.html"
 
 class ProjectListView(ListView):
     model = Project
@@ -29,6 +29,10 @@ class TaskDetailView(DetailView):
     template_name = "task_traking/detailtask.html"
     context_object_name = "detailtask"
 
+    def get_context_data(self, **args):
+        context = super().get_context_data(**args)
+        context['coment'] = Comment.objects.filter(task = self.object)
+        return context
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
@@ -54,8 +58,8 @@ class CreateCommentView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = "task_traking/comentcreate.html"
-    succes_url = "../"
-
+    success_url = "../"
+    
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)

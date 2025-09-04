@@ -6,7 +6,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg bg-dark-subtle">
+        <nav class="navbar navbar-expand-lg bg-dark-subtle ">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home'%}">home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,24 +23,27 @@
                         <li class="nav-item">
                             <a class = "nav-link" href="{% url 'create_task'%}">створити задачу</a>
                         </li>
-
-                        <li class="nav-item" >
-                            <a class = "nav-link" href="{% url 'login'%}">ввійти</a>
-                        </li>
+                    </ul>   
+                    <ul class="navbar-nav justify-content-end">
                         <li class="nav-item" >
                             <a class = "nav-link" href="{% url 'register'%}">зареєструватися</a>
                         </li>
-                        <li class="nav-item">
-                            <form method="post" action="{% url 'logout' %}">
-                                {% csrf_token %}
-                                <button type="submit" class = "nav-link">вийти</button>
-                            </form>
-                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class = "nav-link">вийти</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav-item" >
+                                <a class = "nav-link" href="{% url 'login'%}">ввійти</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
-
         {% block content%}
             
         {% endblock %}
